@@ -11,6 +11,7 @@ public class Main {
 
     private void run() {
     	init();
+    	// TODO: kürzesten Weg von ... nach ... berechnen
 		}
 
 		private void init() {
@@ -75,5 +76,7 @@ public class Main {
 			städte.add("Hamburg","Kassel",310);
 			städte.add("Berlin","Schwerin",213);
 			städte.add("Schwerin","Greifswald",174);
+
+			System.out.println(städte);
 		}
 }

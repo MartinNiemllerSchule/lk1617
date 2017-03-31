@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * Created by frank on 30.03.17.
  */
 public class Stadt implements Comparable<Stadt> {
-	private String name;
+	protected String name;
 	private float lattitude;
 	private float longitude;
 
@@ -30,7 +30,7 @@ public class Stadt implements Comparable<Stadt> {
 
 	/**
 	 * ist stadt diese Stadt?
-	 * @param stadt
+	 * @param stadt - Stadtname (Groß- und Kleinschreibung wichtig)
 	 * @return
 	 */
 	protected int istStadt(String stadt) {

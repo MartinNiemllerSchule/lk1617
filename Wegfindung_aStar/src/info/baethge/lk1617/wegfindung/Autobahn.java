@@ -8,13 +8,13 @@ public class Autobahn {
 	private Stadt nach;
 	private Integer entfernung;
 
-	public Autobahn(Stadt vonS, Stadt nachS, Integer entf) {
+	protected Autobahn(Stadt vonS, Stadt nachS, Integer entf) {
 		von = vonS;
-		nachS = nachS;
+		nach = nachS;
 		entfernung = entf;
 	}
 	@Override
 	public String toString() {
-		return String.format("$s - $s: %d\n", von, nach, entfernung);
+		return String.format("\t%s -- %s [ label = %d ];\n", von.name, nach.name, entfernung);
 	}
 }
