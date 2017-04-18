@@ -1,8 +1,5 @@
 package info.baethge.lk1617.wegfindung;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -14,7 +11,10 @@ public class Main {
     	// TODO: kürzesten Weg von ... nach ... berechnen
 		}
 
-		private void init() {
+	/**
+	 * Eintragen der Städte und Autobahnen
+	 */
+	private void init() {
 			// alle info.baethge.lk1617.wegfindung.Städte eintragen
 			Städte städte = new Städte();
 			städte.add(new Stadt("FAM","50°7’","8°41’"));

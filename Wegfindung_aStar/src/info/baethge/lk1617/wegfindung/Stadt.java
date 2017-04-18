@@ -1,16 +1,23 @@
 package info.baethge.lk1617.wegfindung;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
- * Created by frank on 30.03.17.
+ * Datenspeicher für die Angaben zu einer Stadt
+ *
+ * Comparable wird verwendet, um Städte miteinander vergleichbar zu machen und die städte-Liste zu sortieren
+ *
  */
 public class Stadt implements Comparable<Stadt> {
 	protected String name;
 	private float lattitude;
 	private float longitude;
 
+	/**
+	 * Konstruktor, erwartet die Eingaben als Text: Länge und Breite in der Form xx°xx'
+	 *
+	 * @param name - Name der Stadt
+	 * @param lat  - geografische Breite
+	 * @param lon  - geografische Länge
+	 */
 	public Stadt(String name, String lat, String lon) {
 		this.name = name;
 		lattitude = getKoordinate(lat);
@@ -36,9 +43,9 @@ public class Stadt implements Comparable<Stadt> {
 	protected int istStadt(String stadt) {
 		return stadt.compareTo(name);
 	}
+
 	protected int compareTo(String name) {
-		return this.name.compareTo(name);
-	}
+		return this.name.compareTo(name); }
 
 	@Override
 	public int compareTo(Stadt s) {
@@ -46,22 +53,6 @@ public class Stadt implements Comparable<Stadt> {
 	}
 	@Override
 	public String toString() {
-		return String.format("%s: (%f,%f)", name, lattitude, longitude);
+		return String.format("%s: (%f|%f)", name, lattitude, longitude);
 	}
 }
-
-/**
- *
- Autobahnen
-
-
- Daten aufbereiten
- FAM: 50°7’, 8°41’
- Kassel: 51°19’, 9°30’
- Münster: 51°58’, 7°38’
- Köln: 50°56’, 6°57’
- Trier: 49°46’, 6°39’
-
- https://www.kompf.de/gps/distcalc.html
-
- */
