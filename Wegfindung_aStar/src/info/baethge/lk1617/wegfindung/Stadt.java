@@ -8,8 +8,11 @@ package info.baethge.lk1617.wegfindung;
  */
 public class Stadt implements Comparable<Stadt> {
 	protected String name;
-	private float lattitude;
-	private float longitude;
+	protected float lattitude;
+	protected float longitude;
+	protected Float entfernung;
+	protected Float luftlinie;
+	protected Stadt vorgänger;
 
 	/**
 	 * Konstruktor, erwartet die Eingaben als Text: Länge und Breite in der Form xx°xx'
@@ -22,6 +25,9 @@ public class Stadt implements Comparable<Stadt> {
 		this.name = name;
 		lattitude = getKoordinate(lat);
 		longitude = getKoordinate(lon);
+		entfernung = Float.MAX_VALUE;
+		luftlinie = Float.MAX_VALUE;
+		vorgänger = null;
 	}
 
 	/**
@@ -45,7 +51,13 @@ public class Stadt implements Comparable<Stadt> {
 	}
 
 	protected int compareTo(String name) {
-		return this.name.compareTo(name); }
+		return this.name.compareTo(name);
+	}
+
+	protected int istKleiner(Stadt stadt) {
+		Float schätzung = entfernung + luftlinie;
+		return schätzung.compareTo(stadt.entfernung + stadt.luftlinie);
+	}
 
 	@Override
 	public int compareTo(Stadt s) {

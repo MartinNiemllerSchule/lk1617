@@ -10,7 +10,7 @@ public class Städte {
 	private List<Stadt> städte;
 	private List<Autobahn> autobahnen;
 
-	public Städte() {
+	protected Städte() {
 		städte = new ArrayList<>();
 		autobahnen = new ArrayList<>();
 	}
@@ -38,6 +38,36 @@ public class Städte {
 			return idx;
 		} else {
 			return -1;
+		}
+	}
+
+	protected Stadt getStadt(String name) {
+		int idx = getStadtIdx(name);
+		if (idx < 0)
+			return null;
+		else
+			return städte.get(idx);
+	}
+
+	protected List<Autobahn> getAutobahnen(String name) {
+		Stadt stadt = getStadt(name);
+		if (stadt == null) return null;
+
+		List<Autobahn> autobahn = new ArrayList<>();
+		for (Autobahn a : autobahnen) {
+			if (stadt == a.nach)
+				autobahn.add(new Autobahn(stadt, a.von, a.entfernung));
+			else if (stadt == a.von) autobahn.add(a);
+		}
+		return autobahn;
+	}
+
+	protected void setLuftlinien(Stadt nach) {
+		for (Stadt s : städte) {
+			float
+					dx = 71.5f * (s.lattitude - nach.lattitude),
+					dy = 111.3f * (s.longitude - nach.longitude);
+			s.luftlinie = (float) Math.sqrt(dx * dx + dy * dy);
 		}
 	}
 

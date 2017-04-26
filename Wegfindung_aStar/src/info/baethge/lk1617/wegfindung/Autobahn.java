@@ -4,9 +4,9 @@ package info.baethge.lk1617.wegfindung;
  * Datenspeicher für die Verbindung zweier Städte über eine Autobahn
  */
 public class Autobahn {
-	private Stadt von;
-	private Stadt nach;
-	private Integer entfernung;
+	protected Stadt von;
+	protected Stadt nach;
+	protected Integer entfernung;
 
 	/**
 	 * Konstruktor

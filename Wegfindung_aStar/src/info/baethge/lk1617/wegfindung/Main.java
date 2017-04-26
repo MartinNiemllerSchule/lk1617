@@ -1,22 +1,75 @@
 package info.baethge.lk1617.wegfindung;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 
-    public static void main(String[] args) {
-        (new Main()).run();
-    }
 
-    private void run() {
-    	init();
-    	// TODO: kürzesten Weg von ... nach ... berechnen
+	private Städte städte;
+
+	public static void main(String[] args) {
+		(new Main()).run();
+	}
+
+	private void run() {
+		init();
+		// kürzesten Weg von ... nach ... berechnen
+
+		List<Stadt> offen = new ArrayList<>();
+		List<Stadt> geschlossen = new ArrayList<>();
+		Stadt
+				von = städte.getStadt("Mannheim"),
+				nach = städte.getStadt("Bremen");
+		// alle "Luftlinien" müssen nur einmal berechnet werden
+		städte.setLuftlinien(nach);
+		// initialisiere von mit Entfernung 0 und sich selbst als Vorgänger
+		von.entfernung = 0.0f;
+		von.vorgänger = von;
+		offen.add(von);
+		while (0 < offen.size()) {
+			offen.sort((s1, s2) -> s1.istKleiner(s2));
+			Stadt stadt = offen.remove(0);
+			List<Autobahn> nachfolger = städte.getAutobahnen(stadt.name);
+			for (Autobahn a : nachfolger) {
+				if (a.nach == nach) {
+					nach.entfernung = stadt.entfernung + a.entfernung;
+					nach.vorgänger = stadt;
+					System.out.print("Es wurde eine Strecke gefunden: " + nach.entfernung + "  => " + nach.name + " <- ");
+					Stadt vorgänger = nach.vorgänger;
+					while (vorgänger != vorgänger.vorgänger) {
+						System.out.print(vorgänger.name + " <- ");
+						vorgänger = vorgänger.vorgänger;
+					}
+					System.out.println();
+					return;
+				} else {
+					if (!geschlossen.contains(a.nach)) {
+						Float entfernung = stadt.entfernung + a.entfernung;
+						if (offen.contains(a.nach)) {
+							if (entfernung < a.nach.entfernung) {
+								a.nach.entfernung = entfernung;
+								a.nach.vorgänger = stadt;
+							}
+						} else {
+							a.nach.entfernung = entfernung;
+							a.nach.vorgänger = stadt;
+							offen.add(a.nach);
+						}
+
+					}
+				}
+			}
+			geschlossen.add(stadt);
 		}
+	}
 
 	/**
 	 * Eintragen der Städte und Autobahnen
 	 */
 	private void init() {
 			// alle info.baethge.lk1617.wegfindung.Städte eintragen
-			Städte städte = new Städte();
+		städte = new Städte();
 			städte.add(new Stadt("FAM","50°7’","8°41’"));
 			städte.add(new Stadt("Kassel","51°19’","9°30’"));
 			städte.add(new Stadt("Münster","51°58’","7°38’"));
